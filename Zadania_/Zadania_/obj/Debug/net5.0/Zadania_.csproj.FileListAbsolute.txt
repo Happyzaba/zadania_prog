@@ -1,0 +1,16 @@
+C:\Users\jakfi\OneDrive\Pulpit\Zadania_\Zadania_\bin\Debug\net5.0\Zadania_.exe
+C:\Users\jakfi\OneDrive\Pulpit\Zadania_\Zadania_\bin\Debug\net5.0\Zadania_.deps.json
+C:\Users\jakfi\OneDrive\Pulpit\Zadania_\Zadania_\bin\Debug\net5.0\Zadania_.runtimeconfig.json
+C:\Users\jakfi\OneDrive\Pulpit\Zadania_\Zadania_\bin\Debug\net5.0\Zadania_.runtimeconfig.dev.json
+C:\Users\jakfi\OneDrive\Pulpit\Zadania_\Zadania_\bin\Debug\net5.0\Zadania_.dll
+C:\Users\jakfi\OneDrive\Pulpit\Zadania_\Zadania_\bin\Debug\net5.0\ref\Zadania_.dll
+C:\Users\jakfi\OneDrive\Pulpit\Zadania_\Zadania_\bin\Debug\net5.0\Zadania_.pdb
+C:\Users\jakfi\OneDrive\Pulpit\Zadania_\Zadania_\obj\Debug\net5.0\Zadania_.csproj.AssemblyReference.cache
+C:\Users\jakfi\OneDrive\Pulpit\Zadania_\Zadania_\obj\Debug\net5.0\Zadania_.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\jakfi\OneDrive\Pulpit\Zadania_\Zadania_\obj\Debug\net5.0\Zadania_.AssemblyInfoInputs.cache
+C:\Users\jakfi\OneDrive\Pulpit\Zadania_\Zadania_\obj\Debug\net5.0\Zadania_.AssemblyInfo.cs
+C:\Users\jakfi\OneDrive\Pulpit\Zadania_\Zadania_\obj\Debug\net5.0\Zadania_.csproj.CoreCompileInputs.cache
+C:\Users\jakfi\OneDrive\Pulpit\Zadania_\Zadania_\obj\Debug\net5.0\Zadania_.dll
+C:\Users\jakfi\OneDrive\Pulpit\Zadania_\Zadania_\obj\Debug\net5.0\ref\Zadania_.dll
+C:\Users\jakfi\OneDrive\Pulpit\Zadania_\Zadania_\obj\Debug\net5.0\Zadania_.pdb
+C:\Users\jakfi\OneDrive\Pulpit\Zadania_\Zadania_\obj\Debug\net5.0\Zadania_.genruntimeconfig.cache
