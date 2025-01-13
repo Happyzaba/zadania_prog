@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModel="clr-namespace:QuizMauiApp"
+             x:Class="QuizMauiApp.MainPage">
+
+    <ContentPage.BindingContext>
+        <viewModel:ViewModel/>
+    </ContentPage.BindingContext>
+    <StackLayout>
+        <VerticalStackLayout>
+            <Label Text="Treść pytania"/>
+            <Label Text="{Binding QuestionText}"></Label>
+
+            <RadioButton Content="{Binding AnswerOne}" IsChecked="{Binding IsCorrectOne}"/>
+            <RadioButton Content="{Binding AnswerTwo}" IsChecked="{Binding IsCorrectTwo}"/>
+            <RadioButton Content="{Binding AnswerThree}" IsChecked="{Binding IsCorrectThree}"/>
+            <RadioButton Content="{Binding AnswerFour}" IsChecked="{Binding IsCorrectFour}"/>
+
+            <HorizontalStackLayout>
+                <Button Text="Poprzednie pytanie"
+                        WidthRequest="300"
+                        Command="{Binding PreviousQuestion}"/>
+                <Button Text="Nastepne pytanie"
+                        Command="{Binding NextQuestion}"
+                         WidthRequest="300"/>
+                <Button Text="Sprawdz"
+                        Command="{Binding GetFinalScore}"
+                         WidthRequest="300"/>
+                <Button Text="Od nowa"
+                        Command="{Binding Reset}"
+                         WidthRequest="300"/>
+
+            </HorizontalStackLayout>
+            <Label Text="{Binding ShowFinalScore}"></Label>
+        </VerticalStackLayout>
+    </StackLayout>
+</ContentPage>
