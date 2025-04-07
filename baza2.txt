@@ -1,0 +1,56 @@
+Table Uczen {
+  id int [primary key]
+  Imie varchar
+  Nazwisko varchar 
+  email varchar
+  adres varchar
+  dataUrodzenia date
+}
+
+Table Lekcja {
+  id int [primary key]
+  Nazwa varchar
+}
+
+Table Kurs {
+  id int  [primary key]
+  Nazwa varchar 
+  Autor_id int
+  instruktor_id int
+  lekcja_id int
+}
+
+Table Specjalizacja {
+  id int [primary key]
+  Nazwa_specjalizacji varchar
+}
+
+Table Autor {
+  id int [primary key]
+  Imie varchar
+  Nazwisko varchar
+}
+
+Table Instruktor {
+  id int [primary key]
+  Imie varchar
+  Nazwisko varchar
+  specjalizacja_id int
+}
+
+Table UczenKurs {
+  id int [primary key]
+  uczen_id int
+  kurs_id int
+}
+Table Edycja_kursu{
+  id int [primary key]
+  kurs_id int
+}
+
+Ref: Uczen.id < UczenKurs.uczen_id
+Ref: UczenKurs.kurs_id > Kurs.id
+Ref: Kurs.Autor_id < Autor.id 
+Ref: Kurs.lekcja_id < Lekcja.id
+Ref: Kurs.instruktor_id < Instruktor.id
+Ref: Specjalizacja.id < Instruktor.specjalizacja_id
