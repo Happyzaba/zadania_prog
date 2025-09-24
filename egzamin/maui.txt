@@ -1,0 +1,84 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WzornikRGB.MainPage"
+             BackgroundColor="Cornsilk"
+             Title="Wzornik kolorów RGB. Wykonał 00000000000">
+
+    <VerticalStackLayout Padding="20" Spacing="15">
+
+        <!-- Duży prostokąt -->
+        <BoxView x:Name="DuzyProstokat" HeightRequest="100" Color="White"/>
+
+        <Label Text="Dobierz kolor suwakami i zapisz przyciskiem:" />
+
+        <!-- Suwaki RGB -->
+        <StackLayout Orientation="Horizontal">
+            <Label Text="R" WidthRequest="20"/>
+            <Slider x:Name="SliderR" Minimum="0" Maximum="255" Value="255" ValueChanged="OnSliderChanged"/>
+            <Label x:Name="LabelR" WidthRequest="40" Text="255"/>
+        </StackLayout>
+
+        <StackLayout Orientation="Horizontal">
+            <Label Text="G" WidthRequest="20"/>
+            <Slider x:Name="SliderG" Minimum="0" Maximum="255" Value="255" ValueChanged="OnSliderChanged"/>
+            <Label x:Name="LabelG" WidthRequest="40" Text="255"/>
+        </StackLayout>
+
+        <StackLayout Orientation="Horizontal">
+            <Label Text="B" WidthRequest="20"/>
+            <Slider x:Name="SliderB" Minimum="0" Maximum="255" Value="255" ValueChanged="OnSliderChanged"/>
+            <Label x:Name="LabelB" WidthRequest="40" Text="255"/>
+        </StackLayout>
+
+        <!-- Przycisk -->
+        <Button Text="Pobierz" BackgroundColor="#CDB53F" Clicked="OnPobierzClicked"/>
+
+        <!-- Mały prostokąt -->
+        <BoxView x:Name="MalyProstokat" HeightRequest="50" Color="White"/>
+        <Label x:Name="LabelRGB" Text="255, 255, 255"/>
+
+    </VerticalStackLayout>
+</ContentPage>
+
+
+c#
+
+using Microsoft.Maui.Controls;
+
+namespace WzornikRGB;
+
+public partial class MainPage : ContentPage
+{
+    private int r = 255, g = 255, b = 255;
+
+    public MainPage()
+    {
+        InitializeComponent();
+        UpdateDuzyProstokat();
+    }
+
+    private void OnSliderChanged(object sender, ValueChangedEventArgs e)
+    {
+        r = (int)SliderR.Value;
+        g = (int)SliderG.Value;
+        b = (int)SliderB.Value;
+
+        LabelR.Text = r.ToString();
+        LabelG.Text = g.ToString();
+        LabelB.Text = b.ToString();
+
+        UpdateDuzyProstokat();
+    }
+
+    private void UpdateDuzyProstokat()
+    {
+        DuzyProstokat.Color = Color.FromRgb(r, g, b);
+    }
+
+    private void OnPobierzClicked(object sender, EventArgs e)
+    {
+        MalyProstokat.Color = Color.FromRgb(r, g, b);
+        LabelRGB.Text = $"{r}, {g}, {b}";
+    }
+}
+
