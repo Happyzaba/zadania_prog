@@ -1,0 +1,96 @@
+public class Viewmodel : INotifyPropertyChanged
+{
+    private int r = 255;
+    private int g = 255;
+    private int b = 255;
+
+    private Color duzyKolor;
+    private Color malyKolor = Colors.White;
+    private string textRGB = "255, 255, 255";
+
+    public int RValue
+    {
+        get => r;
+        set
+        {
+            r = value;
+            OnPropertyChanged();
+            UpdateDuzyKolor();
+        }
+    }
+
+    public int GValue
+    {
+        get => g;
+        set
+        {
+            g = value;
+            OnPropertyChanged();
+            UpdateDuzyKolor();
+        }
+    }
+
+    public int BValue
+    {
+        get => b;
+        set
+        {
+            b = value;
+            OnPropertyChanged();
+            UpdateDuzyKolor();
+        }
+    }
+
+    public Color ColorBox
+    {
+        get => duzyKolor;
+        set
+        {
+            duzyKolor = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public Color MalyKolor
+    {
+        get => malyKolor;
+        set
+        {
+            malyKolor = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public string TextRGB
+    {
+        get => textRGB;
+        set
+        {
+            textRGB = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public ICommand PobierzCommand { get; }
+
+    public Viewmodel()
+    {
+        PobierzCommand = new Command(Pobierz);
+        UpdateDuzyKolor();
+    }
+
+    private void UpdateDuzyKolor()
+    {
+        ColorBox = Color.FromRgb(RValue, GValue, BValue);
+    }
+
+    private void Pobierz()
+    {
+        MalyKolor = Color.FromRgb(RValue, GValue, BValue);
+        TextRGB = $"{RValue}, {GValue}, {BValue}";
+    }
+
+    public event PropertyChangedEventHandler PropertyChanged;
+    private void OnPropertyChanged([CallerMemberName] string name = null) =>
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+}
