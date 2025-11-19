@@ -1,0 +1,91 @@
+import React, {useState} from 'react'
+import dane from '.../obcjects/dane'
+
+
+
+const Gleria = () => {
+    const[images, setImages]=useState(dane)
+    cosnt[kategorie, setKategorie] =useState({
+        kwiaty:true,
+        zwierzeta:true,
+        samochody:true,
+    })
+    const ZmianaKategori = (nazwaKategorii)=>{
+        setKategorie(x=>({
+            ...x,
+            [nazwaKategorii]:!x[nazwaKategorii]
+        }))
+    }
+
+    const filtracja=images.filter(image=>{
+        if(image.category===1 && kategorie.kwiaty) return true
+        if(image.category===2 && kategorie.zwierzeta) return true
+        if(image.category===3 && kategorie.samochody) return true
+        return false
+    })
+
+    const Pobierz=(idObrazka)=>{
+        setImages(x=>
+        x.map(obrazek=> obrazek.id===idObrazka ? {...obrazek,downloads:obrazek.downloads+1} : obrazek)
+        )
+    }
+
+    return(
+        <div>
+            <h1>Kategorie Zdjęć</h1>
+
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="kwiaty" 
+                checked={kategorie.kwiaty} 
+                onChange={()=>{ZmiennaKategori('kwiaty')}}
+                />
+                
+                <label class="form-check-input" for="kwiaty">Kwiaty</label>
+            </div>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="zwierzeta"
+                checked={kategorie.zwierzeta} 
+                onChange={()=>{ZmiennaKategori('zwierzta')}}
+                />
+                <label class="form-check-input" for="zwierzeta">Zwierzęta</label>
+            </div>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="samochody
+                checked={kategorie.samochody} 
+                onChange={()=>{ZmiennaKategori('samochody')}}
+                />
+                <label class="form-check-input" for="samochody">Samochody</label>
+            </div>
+
+        <div>
+            {filtracja.map(image=>(
+                <div>
+                <img src={`/assets/${image.filename}`} alt="{image.alt}"></img>
+                <h4>Pobrań: ${image.downloads}</h4>
+                <button onClick={()=>{Pobierz(image.id)}}>Pobierz</button>
+                </div>
+            ))}
+        </div>    
+
+        </div>
+    )
+
+}
+
+export default Galeria
+
+
+w app.js czy cos takiego 
+
+import './App.css';
+import 'bootstrap/dist/css/bootstrap.css';
+
+function App(){
+    return{
+        <div className="App>
+            <Galeria></Galeria>
+        </div>
+    }
+}
+
+export defaul App;
