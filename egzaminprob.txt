@@ -1,0 +1,213 @@
+czesc 1
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Ile kilometrów przebiegłeś: ");
+        if (!int.TryParse(Console.ReadLine(), out int n) || n <= 0)
+        {
+            Console.WriteLine("Błąd danych.");
+            return;
+        }
+
+        int[] czasy = new int[n];
+
+        Console.WriteLine("Podaj czasy każdego kilometra (w sekundach):");
+        for (int i = 0; i < n; i++)
+        {
+            Console.Write($"{i + 1}: ");
+            if (!int.TryParse(Console.ReadLine(), out czasy[i]) || czasy[i] < 0)
+            {
+                Console.WriteLine("Błędna wartość czasu.");
+                return;
+            }
+        }
+
+        Console.Write("Podaj długość odcinka (w km): ");
+        if (!int.TryParse(Console.ReadLine(), out int k) || k <= 0 || k > n)
+        {
+            Console.WriteLine("Błędna długość odcinka.");
+            return;
+        }
+
+        var wynik = NajlepszyOdcinek(czasy, k);
+
+        Console.WriteLine($"Najlepszy czas na {k}km odcinku wynosi: {wynik}");
+    }
+
+    /**
+     * NajlepszyOdcinek
+     * Funkcja oblicza najmniejszą sumę kolejnych k czasów (w sekundach) – czyli najlepszy odcinek.
+     * Parametry wejściowe:
+     * czasy - tablica czasów w sekundach
+     * k - długość odcinka (w kilometrach)
+     * wartość zwracana:
+     * najmniejsza suma k kolejnych czasów
+     * autor: <TWÓJ_NUMER>
+     * Algorytm: sliding window (przesuwne okno)
+     **/
+    static int NajlepszyOdcinek(int[] czasy, int k)
+    {
+        int suma = 0;
+        for (int i = 0; i < k; i++)
+            suma += czasy[i];
+
+        int min = suma;
+
+        for (int i = k; i < czasy.Length; i++)
+        {
+            suma += czasy[i];
+            suma -= czasy[i - k];
+            if (suma < min)
+                min = suma;
+        }
+        return min;
+    }
+}
+
+
+
+
+czesc 2 
+
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             x:Class="SumatorCzasowApp.MainPage"
+             Title="Sumator czasów"
+             BackgroundColor="Khaki"
+             Padding="20">
+
+    <VerticalStackLayout Spacing="18" VerticalOptions="Start">
+        <Label Text="Sumator czasów"
+               HorizontalOptions="Center"
+               FontAttributes="Bold"
+               FontSize="24" />
+
+        <Label Text="{Binding TotalLabel}" 
+               FontSize="14" />
+
+        <Label Text="{Binding TotalTime}" 
+               FontSize="16"
+               HorizontalOptions="Start" />
+
+        <Label Text="Nowy czas (m:s):" />
+
+        <HorizontalStackLayout Spacing="8" VerticalOptions="Center">
+            <Entry Text="{Binding MinutesInput}" 
+                   Placeholder="minuty"
+                   Keyboard="Numeric"
+                   WidthRequest="80" />
+            <Entry Text="{Binding SecondsInput}" 
+                   Placeholder="sekundy"
+                   Keyboard="Numeric"
+                   WidthRequest="80" />
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout Spacing="12" HorizontalOptions="Center">
+            <Button Text="DOLICZ"
+                    Command="{Binding DoliczCommand}"
+                    BackgroundColor="Green"
+                    TextColor="White"
+                    WidthRequest="120" />
+            <Button Text="RESET"
+                    Command="{Binding ResetCommand}"
+                    BackgroundColor="Crimson"
+                    TextColor="White"
+                    WidthRequest="120" />
+        </HorizontalStackLayout>
+    </VerticalStackLayout>
+</ContentPage>
+
+
+using System;
+using System.ComponentModel;
+using System.Windows.Input;
+using Microsoft.Maui.Controls;
+using System.Globalization;
+
+namespace SumatorCzasowApp
+{
+    public class MainViewModel : INotifyPropertyChanged
+    {
+        private string minutesInput;
+        private string secondsInput;
+        private int totalSeconds = 0;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public string MinutesInput
+        {
+            get => minutesInput;
+            set { minutesInput = value; OnPropertyChanged(nameof(MinutesInput)); }
+        }
+
+        public string SecondsInput
+        {
+            get => secondsInput;
+            set { secondsInput = value; OnPropertyChanged(nameof(SecondsInput)); }
+        }
+
+        public string TotalLabel => "Łączny czas (m:s):";
+
+        public string TotalTime
+        {
+            get
+            {
+                int m = totalSeconds / 60;
+                int s = totalSeconds % 60;
+                return $"{m}:{s:D2}";
+            }
+        }
+
+        public ICommand DoliczCommand => new Command(OnDolicz);
+        public ICommand ResetCommand => new Command(OnReset);
+
+        private void OnDolicz()
+        {
+            // walidacja
+            if (!int.TryParse(MinutesInput, NumberStyles.Integer, CultureInfo.InvariantCulture, out int m))
+            {
+                ShowError("Błędna wartość");
+                return;
+            }
+            if (!int.TryParse(SecondsInput, NumberStyles.Integer, CultureInfo.InvariantCulture, out int s))
+            {
+                ShowError("Błędna wartość");
+                return;
+            }
+            if (m < 0 || s < 0 || s >= 60)
+            {
+                ShowError("Błędna wartość sekund lub minut");
+                return;
+            }
+
+            // dodaj
+            totalSeconds += m * 60 + s;
+
+            // wyczyść pola do kolejnego wpisu
+            MinutesInput = string.Empty;
+            SecondsInput = string.Empty;
+
+            // powiadom UI
+            OnPropertyChanged(nameof(TotalTime));
+        }
+
+        private async void ShowError(string message)
+        {
+            // proste wyświetlenie alertu - w MAUI można użyć Application.Current.MainPage.DisplayAlert
+            await Application.Current.MainPage.DisplayAlert("błąd", message, "OK");
+        }
+
+        private void OnReset()
+        {
+            totalSeconds = 0;
+            MinutesInput = string.Empty;
+            SecondsInput = string.Empty;
+            OnPropertyChanged(nameof(TotalTime));
+        }
+
+        private void OnPropertyChanged(string name) =>
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+    }
+}
